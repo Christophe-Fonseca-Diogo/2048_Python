@@ -33,34 +33,25 @@ movement = 0
 # Functions                             #
 #########################################
 
-def Mix(list, rev, id):
-    while 0 in list:
-        list.remove(0)
-    print(list)
+def Mix(list, rev):
+    for obj in list:
+        if 0 in list:
+            list.remove(0)
     for obj in range(len(list) - 1):
         if list[obj] == list[obj + 1]:
             list[obj] += list[obj + 1]
             list[obj + 1] = 0
-    print(list)
     for obj in list:
         if 0 in list:
             list.remove(0)
-    print(list)
     if rev:
-        totalNumbers = 4 - len(list)
+        totalNumbers = 4 -len(list)
         while totalNumbers != 0:
             totalNumbers -= 1
             list.insert(0,0)
     else:
         while len(list) < 4:
             list.append(0)
-    print(list)
-    while 0 in list:
-        list.remove(0)
-    print(list)
-    objRefresh()
-    grid_2048[0] = list
-    temporal_List.clear()
     return list
 #########################################
 #########################################
@@ -68,24 +59,12 @@ def Mix(list, rev, id):
 def click_on_letter(event):
     if event.keysym == 'Left' or event.keysym == 'a':
         for line in range(len(grid_2048)):
-            for col in range(len(grid_2048[line])):
-                temporal_List.append(grid_2048[line][col])
-            Mix(temporal_List, False, 0)
+            grid_2048[line] = Mix(grid_2048[line], False)
+        objRefresh()
     elif event.keysym == 'Right' or event.keysym == 'd':
         for line in range(len(grid_2048)):
-            for col in range(len(grid_2048[line])):
-                temporal_List.append(grid_2048[line][col])
-            grid_2048[line] = Mix(temporal_List, True, 0)
-    elif event.keysym == 'Up' or event.keysym == 'w':
-        for line in range(len(grid_2048)):
-            for col in range(len(grid_2048[line])):
-                temporal_List.append(grid_2048[col][line])
-            grid_2048[line] = Mix(temporal_List, False, 1)
-    elif event.keysym == 'Down' or event.keysym == 's':
-        for line in range(len(grid_2048)):
-            for col in range(len(grid_2048[line])):
-                temporal_List.append(grid_2048[col][line])
-            grid_2048[line] = Mix(temporal_List, True, 1)
+            grid_2048[line] = Mix(grid_2048[line], True)
+        objRefresh()
 
 
 #########################################
@@ -93,7 +72,6 @@ def click_on_letter(event):
 #########################################
 
 grid_2048= [[2, 2, 2, 2], [4, 0, 128, 0], [256, 32, 2048, 8], [64, 512, 16, 1024]]
-temporal_List = [[][][][]]
 labels = [[None, None, None, None], [None, None, None, None], [None, None, None, None],[None, None, None, None]]
 
 #########################################
@@ -127,4 +105,3 @@ if __name__ == '__main__':
 window.bind('<Key>', click_on_letter)
 
 window.mainloop()
-
