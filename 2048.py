@@ -34,9 +34,8 @@ movement = 0
 #########################################
 
 def Mix(list, rev, id):
-    for obj in list:
-        if 0 in list:
-            list.remove(0)
+    while 0 in list:
+        list.remove(0)
     print(list)
     for obj in range(len(list) - 1):
         if list[obj] == list[obj + 1]:
@@ -56,27 +55,37 @@ def Mix(list, rev, id):
         while len(list) < 4:
             list.append(0)
     print(list)
-    for obj in list:
-        if 0 in list:
-            list.remove(0)
+    while 0 in list:
+        list.remove(0)
     print(list)
-    if id:
-
-
-
-        return list
+    objRefresh()
+    grid_2048[0] = list
+    temporal_List.clear()
+    return list
 #########################################
 #########################################
 
 def click_on_letter(event):
     if event.keysym == 'Left' or event.keysym == 'a':
         for line in range(len(grid_2048)):
-            grid_2048[line] = Mix(grid_2048[line], False)
-        objRefresh()
+            for col in range(len(grid_2048[line])):
+                temporal_List.append(grid_2048[line][col])
+            Mix(temporal_List, False, 0)
     elif event.keysym == 'Right' or event.keysym == 'd':
         for line in range(len(grid_2048)):
-            grid_2048[line] = Mix(grid_2048[line], True)
-        objRefresh()
+            for col in range(len(grid_2048[line])):
+                temporal_List.append(grid_2048[line][col])
+            grid_2048[line] = Mix(temporal_List, True, 0)
+    elif event.keysym == 'Up' or event.keysym == 'w':
+        for line in range(len(grid_2048)):
+            for col in range(len(grid_2048[line])):
+                temporal_List.append(grid_2048[col][line])
+            grid_2048[line] = Mix(temporal_List, False, 1)
+    elif event.keysym == 'Down' or event.keysym == 's':
+        for line in range(len(grid_2048)):
+            for col in range(len(grid_2048[line])):
+                temporal_List.append(grid_2048[col][line])
+            grid_2048[line] = Mix(temporal_List, True, 1)
 
 
 #########################################
@@ -84,6 +93,7 @@ def click_on_letter(event):
 #########################################
 
 grid_2048= [[2, 2, 2, 2], [4, 0, 128, 0], [256, 32, 2048, 8], [64, 512, 16, 1024]]
+temporal_List = [[][][][]]
 labels = [[None, None, None, None], [None, None, None, None], [None, None, None, None],[None, None, None, None]]
 
 #########################################
