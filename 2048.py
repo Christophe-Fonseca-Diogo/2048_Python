@@ -53,6 +53,8 @@ def Mix(list, rev):
         while len(list) < 4:
             list.append(0)
     return list
+
+
 #########################################
 #########################################
 
@@ -64,6 +66,21 @@ def click_on_letter(event):
     elif event.keysym == 'Right' or event.keysym == 'd':
         for line in range(len(grid_2048)):
             grid_2048[line] = Mix(grid_2048[line], True)
+        objRefresh()
+    elif event.keysym == 'Up' or event.keysym == 'w':
+        for col in range(len(grid_2048)):
+            column = [grid_2048[line][col] for line in range(len(grid_2048))]
+            mix_column = Mix(column,False)
+            for line in range(len(grid_2048)):
+                grid_2048[line][col] = mix_column[line]
+        objRefresh()
+    elif event.keysym == 'Down' or event.keysym == 's':
+        for col in range(len(grid_2048)):
+            column = [grid_2048[line][col] for line in range(len(grid_2048))]
+            reversed_column = column[::-1]
+            mix_column = Mix(reversed_column,False)
+            for line in range(len(grid_2048)):
+                grid_2048[line][col] = mix_column[::-1][line]
         objRefresh()
 
 
