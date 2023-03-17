@@ -120,7 +120,7 @@ def click_on_letter(event):
 # Table for the grid                    #
 #########################################
 
-grid_2048= [[0, 0, 0, 4], [4, 0, 0, 2], [2, 2, 2, 4], [2, 2, 0, 0]]
+grid_2048= [[2, 2, 0, 4], [4, 0, 0, 2], [2, 2, 2, 4], [2, 2, 0, 0]]
 labels = [[None, None, None, None], [None, None, None, None], [None, None, None, None],[None, None, None, None]]
 
 #########################################
