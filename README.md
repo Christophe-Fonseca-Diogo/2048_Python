@@ -20,3 +20,6 @@ Il s'agit d'une application en python réalisée avec tkinter pour la partie gra
 Propriétaire du dépôt : Christophe.FONSECA-DIOGO@cpnv.ch
 \n
 Gérant du projet : frederique.andolfatto@cpnv.ch
+- Item 1
+- Item 2
+- Item 3
