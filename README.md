@@ -1,4 +1,4 @@
-# 2048_Fonseca_Diogo.py
+# 2048_Fonseca_Diogo
 
 ### Objectif ###
 
@@ -18,4 +18,5 @@ Il s'agit d'une application en python réalisée avec tkinter pour la partie gra
 ### A qui puis-je m'adresser ? ###
 
 Propriétaire du dépôt : Christophe.FONSECA-DIOGO@cpnv.ch
+**-------------------------------**
 Gérant du projet : frederique.andolfatto@cpnv.ch
