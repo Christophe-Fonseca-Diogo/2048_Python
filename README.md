@@ -18,5 +18,5 @@ Il s'agit d'une application en python réalisée avec tkinter pour la partie gra
 ### A qui puis-je m'adresser ? ###
 
 Propriétaire du dépôt : Christophe.FONSECA-DIOGO@cpnv.ch
-**-------------------------------**
+\n
 Gérant du projet : frederique.andolfatto@cpnv.ch
