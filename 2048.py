@@ -5,7 +5,8 @@
 #####################################
 
 from tkinter import *
-import tkinter.font, random
+import tkinter.font
+import random
 from tkinter import messagebox
 
 #########################################
@@ -15,12 +16,12 @@ from tkinter import messagebox
 grid_2048 = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
 labels = [[None, None, None, None], [None, None, None, None], [None, None, None, None], [None, None, None, None]]
 
-
 #########################################
 # Dictionary  for the colors            #
 #########################################
 
-colors_bg = {2: "#22FF00", 4: "#2B78E4", 8: "#6FA8DC", 16: "#FF9900", 32: "#DDDDDD", 64: "#8518B3", 128: "#C08ED5", 256: "#FF6666", 512: "#45818E", 1024: "#FF00FF", 2048: "#FF0000"}
+colors_bg = {2: "#22FF00", 4: "#2B78E4", 8: "#6FA8DC", 16: "#FF9900", 32: "#DDDDDD", 64: "#8518B3", 128: "#C08ED5",
+             256: "#FF6666", 512: "#45818E", 1024: "#FF00FF", 2048: "#FF0000"}
 
 #########################################
 # Variables                             #
@@ -30,6 +31,7 @@ movement = 0
 win = 2048
 window = Tk()
 score = 0
+
 
 #########################################
 # Window settings                       #
@@ -50,12 +52,13 @@ def display_window():
     # When the game start the game pop up in the middle of the screen.
     screen_width = window.winfo_screenwidth()
     screen_height = window.winfo_screenheight()
-    x_left = int(screen_width/2 - window_width/2)
-    y_top = int(screen_height/2 - window_height/2)
+    x_left = int(screen_width / 2 - window_width / 2)
+    y_top = int(screen_height / 2 - window_height / 2)
     window.geometry("+{}+{}".format(x_left, y_top))
 
     # For not resizing the windows, because if we resize the window the interface gonna not be like wanted
     window.resizable(False, False)
+    # ALL THE GRAPHIC PART #
     window.config(bg="#ea9999")
 
     main_frame = Frame(window, bg="#ea9999")
@@ -67,28 +70,31 @@ def display_window():
     title = Label(top_frame, text="2048 by Christophe", font="Arial, 30", bg="#ea9999", borderwidth=5, relief="groove")
     title.pack(anchor=N)
 
-    middle_frame = Frame(window, bg="Cyan",borderwidth=5, relief="groove")
+    middle_frame = Frame(window, bg="Cyan", borderwidth=5, relief="groove")
     middle_frame.pack()
 
     bottom_frame = Frame(window)
     bottom_frame.pack()
 
-    # This is for the score in the windows
+    # This is for the score in the window
     score_show_textvar = StringVar()
     score_show_textvar.set("Score: " + str(score))
-    score_show = Label(top_frame, textvariable=score_show_textvar, font="Arial, 15",bg="#ea9999",borderwidth=5, relief="flat")
+    score_show = Label(top_frame, textvariable=score_show_textvar, font="Arial, 15", bg="#ea9999", borderwidth=5,
+                       relief="flat")
     score_show.pack(side=LEFT)
 
-    # This is for the movement in the windows
+    # This is for the movement in the window
     movement_show_textvar = StringVar()
     movement_show_textvar.set("Mouvements: " + str(movement))
-    movement_show = Label(top_frame, textvariable=movement_show_textvar, font="Arial, 15",bg="#ea9999",borderwidth=5, relief="flat")
+    movement_show = Label(top_frame, textvariable=movement_show_textvar, font="Arial, 15", bg="#ea9999", borderwidth=5,
+                          relief="flat")
     movement_show.pack(side=RIGHT)
 
     # It's how the button is created and i call the function reset.
-    button_restart = tkinter.Button(bottom_frame, text ="Recommencer", command = reset_game, borderwidth=5, relief="groove", bg="#ea9999")
+    button_restart = tkinter.Button(bottom_frame, text="Recommencer", command=reset_game, borderwidth=5,
+                                    relief="groove", bg="#ea9999")
     button_restart.pack()
-
+    # The functions for the game
     obj_refresh()
     generate_random_value()
     window.bind('<Key>', click_on_letter)
@@ -111,6 +117,7 @@ def delete_zeros(list, rev):
     for obj in list:
         if 0 in list:
             list.remove(0)
+
 
 #########################################
 # Function for mix the grid             #
@@ -136,16 +143,18 @@ def mix(list, rev):
     delete_zeros(list, rev)
     # If rev is True, add zeros to the beginning of the list
     if rev:
-        totalNumbers = 4 -len(list)
-        while totalNumbers != 0:
-            totalNumbers -= 1
-            list.insert(0,0)
+        totalnumbers = 4 - len(list)
+        while totalnumbers != 0:
+            totalnumbers -= 1
+            list.insert(0, 0)
     # If rev is False, add zeros to the end of the list
     else:
         while len(list) < 4:
             list.append(0)
     # Return the modified list
     return list
+
+
 #########################################
 # Functions when the user presses a keybind
 #########################################
@@ -187,9 +196,10 @@ def click_on_letter(event):
         obj_refresh()
     movement_show_textvar.set("Mouvements: " + str(movement))
     if grid_2048 != prev_positions_value:
-        changeRandomValue()
+        changerandomvalue()
     else:
         table_state()
+
 
 def table_state():
     empty_positions = []
@@ -202,7 +212,8 @@ def table_state():
             if answer == "yes":
                 reset_game()
                 obj_refresh()
-            else: quit()
+            else:
+                quit()
             return "Other"
         for j in range(4):
             if grid_2048[i][j] == 0:
@@ -210,15 +221,16 @@ def table_state():
     # If there are no available cases then we will check if the user can still move otherwise he lost.
     if len(empty_positions) == 0:
         # There are no empty spaces, we'll test movements.
-        moveable = movement_checker()
-        if moveable:
+        movable = movement_checker()
+        if movable:
             return "Other"
         else:
             answer = messagebox.askquestion(title="Dommage tu as perdu", message="On recommence ?")
             if answer == "yes":
                 reset_game()
                 obj_refresh()
-            else: quit()
+            else:
+                quit()
             return "Other"
     else:
         return "Space"
@@ -231,21 +243,22 @@ def movement_checker():
         for col in range(4):
             if grid_2048[row][col] == 0:
                 return True
-            if row < 4 - 1 and grid_2048[row][col] == grid_2048[row+1][col]:
+            if row < 4 - 1 and grid_2048[row][col] == grid_2048[row + 1][col]:
                 return True
-            if col < 4 - 1 and grid_2048[row][col] == grid_2048[row][col+1]:
+            if col < 4 - 1 and grid_2048[row][col] == grid_2048[row][col + 1]:
                 return True
     return False
 
 
 # This function asks to the "table_state" if there are any available spaces to insert a random number (2 or 4).
-def changeRandomValue():
+def changerandomvalue():
     while True:
         random_pos_row, random_pos_col = random.randint(0, len(grid_2048) - 1), random.randint(0, len(grid_2048[0]) - 1)
         state = table_state()
         if state == "Space":
             if grid_2048[random_pos_row][random_pos_col] == 0:
-                grid_2048[random_pos_row][random_pos_col] = random.choice([1, 1, 1, 1, 1, 1, 1, 1, 1, 2]) * 2 # The number "4" has only 10 % of chance to be generated
+                grid_2048[random_pos_row][random_pos_col] = random.choice(
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 2]) * 2  # The number "4" has only 10 % of chance to be generated
                 obj_refresh()  # Go to "position refresh" function
                 break
             else:
@@ -259,7 +272,7 @@ def generate_random_value():
     i = 2
     while i != 0:
         i -= 1
-        changeRandomValue()
+        changerandomvalue()
 
 
 # It refreshes all the cases to display any changes.
@@ -268,15 +281,19 @@ def obj_refresh():
         for col in range(len(grid_2048[line])):
             # creation of each label without placing it
             if grid_2048[line][col] != 0:
-                labels[line][col] = tkinter.Label(middle_frame, text=grid_2048[line][col], width=10, height=5, borderwidth=1, relief="solid",
+                labels[line][col] = tkinter.Label(middle_frame, text=grid_2048[line][col], width=10, height=5,
+                                                  borderwidth=1, relief="solid",
                                                   font=("Arial", 12), bg="yellow")
             else:
-                labels[line][col] = tkinter.Label(middle_frame, text="", width=10, height=5, borderwidth=1, relief="solid",
+                labels[line][col] = tkinter.Label(middle_frame, text="", width=10, height=5, borderwidth=1,
+                                                  relief="solid",
                                                   font=("Arial", 12), bg="yellow")
             # we set the label in the windows with a virtual grid
             labels[line][col].grid(row=line, column=col)
-            try:labels[line][col].config(bg=colors_bg[int(grid_2048[line][col])])
-            except:labels[line][col].config(bg="Yellow")
+            try:
+                labels[line][col].config(bg=colors_bg[int(grid_2048[line][col])])
+            except:
+                labels[line][col].config(bg="Yellow")
 
 
 # This definition clear the grid, clear the movement and the score.
